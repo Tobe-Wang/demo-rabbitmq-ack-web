@@ -17,8 +17,7 @@ import java.time.LocalDateTime;
 public class RabbitMQController {
     private final RabbitMQService rabbitMQService;
 
-    @Autowired
-    public RabbitMQController(RabbitMQService rabbitMQService) {
+    public RabbitMQController(@Autowired RabbitMQService rabbitMQService) {
         this.rabbitMQService = rabbitMQService;
     }
 

@@ -25,8 +25,7 @@ public class RabbitMQService {
     private final Binding logBinding;
     private final Queue sysUserQueue;
 
-    @Autowired
-    public RabbitMQService(RabbitTemplate rabbitTemplate, Binding logBinding, Queue sysUserQueue) {
+    public RabbitMQService(@Autowired RabbitTemplate rabbitTemplate, @Autowired Binding logBinding, @Autowired Queue sysUserQueue) {
         this.rabbitTemplate = rabbitTemplate;
         this.logBinding = logBinding;
         this.sysUserQueue = sysUserQueue;
