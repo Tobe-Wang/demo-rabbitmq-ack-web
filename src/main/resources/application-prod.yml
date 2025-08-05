@@ -1,0 +1,16 @@
+### 全局生产环境配置文件 ###
+
+# spring
+spring:
+  rabbitmq:
+    host: 192.168.0.21 # RabbitMQ host（默认为localhost）
+    port: 5672 # RabbitMQ 的端口（默认5672）
+    username: admin # 用户名
+    password: pwd@123QWE # 密码
+    connection-timeout: 5000  # 连接超时(ms)
+    cache:
+      channel:
+        size: 25 # 每个连接最大通道缓存数
+    listener:
+      simple:
+        acknowledge-mode: manual  # 手动ACK（默认auto）

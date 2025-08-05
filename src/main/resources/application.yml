@@ -1,0 +1,40 @@
+### 全局配置文件 ###
+
+# spring
+spring:
+  profiles:
+    active: dev # 指定活动的profile：dev表示开发环境；prod表示生产环境
+  application:
+    name: demo-rabbitmq-ack-web # 应用名称
+  web:
+    locale: zh_CN # 设置国际化默认语言环境(用于spring-boot-starter-validation国际化)
+    locale-resolver: fixed # 使用固定区域设置(用于spring-boot-starter-validation国际化)
+  messages:
+    encoding: UTF-8 # 国际化消息编码
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss # 日期格式
+    time-zone: Asia/Shanghai # 日期格式化时区
+    serialization:
+      indent-output: true #让控制器输出的json字符串格式更美观
+  servlet:
+    multipart:
+      enabled: true # 是否开启文件上传支持，默认为true
+      max-file-size: 2MB # 指定文件大小最大值，默认1MB
+      max-request-size: 10MB # 指定每次请求的最大值，默认为10MB
+      file-size-threshold: 1MB # 设定文件写入磁盘的阈值，单位为MB或KB，默认为0
+
+# server
+server:
+  port: 8080 # 配置应用服务端口，默认为8080
+  compression:
+    enabled: true # Tomcat是否开启压缩，默认为false
+  servlet:
+    context-path: / # 配置默认访问路径，默认为/
+    encoding:
+      enabled: true # 是否开启http的编码支持，默认为true
+      charset: UTF-8 # 指定http请求和相应的Charset，默认:UTF-8
+      force: true # 是否强制对http请求和响应进行编码，默认为true
+    session:
+      timeout: 30 # 用户会话session过期时间，默认30分钟
+  tomcat:
+    uri-encoding: UTF-8 # Tomcat的URI编码，默认:UTF-8
