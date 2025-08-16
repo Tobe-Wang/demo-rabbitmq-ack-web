@@ -1,6 +1,6 @@
-package cn.zhaofd.demorabbitmqackweb.demo.service;
+package cn.zhaofd.demorabbitmqackweb.modules.demo.service;
 
-import cn.zhaofd.demorabbitmqackweb.demo.dto.SysUser;
+import cn.zhaofd.demorabbitmqackweb.modules.demo.dto.SysUser;
 import com.rabbitmq.client.Channel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
