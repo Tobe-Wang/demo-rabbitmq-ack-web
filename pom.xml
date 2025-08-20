@@ -10,7 +10,7 @@
     </parent>
     <groupId>cn.zhaofd</groupId>
     <artifactId>demo-rabbitmq-ack-web</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
     <name>demo-rabbitmq-ack-web</name>
     <description>使用示例-Spring RabbitMQ手动ACK</description>
     <properties>
