@@ -13,7 +13,7 @@ spring:
     encoding: UTF-8 # 国际化消息编码
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss # 日期格式
-    time-zone: Asia/Shanghai # 日期格式化时区
+    time-zone: Asia/Shanghai # 日期格式化时区(Asia/Shanghai或GMT+8)
     serialization:
       indent-output: true #让控制器输出的json字符串格式更美观
   servlet:
