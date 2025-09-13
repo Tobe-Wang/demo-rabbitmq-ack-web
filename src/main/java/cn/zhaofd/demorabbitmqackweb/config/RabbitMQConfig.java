@@ -46,13 +46,13 @@ public class RabbitMQConfig {
     }
 
     /**
-     * 创建队列
+     * 创建队列(日志)
      *
      * @return Queue
      */
     @Bean
     public Queue logQueue() {
-        return new Queue("log-queue");
+        return new Queue("log-queue"); // 默认持久化
     }
 
     /**
@@ -62,7 +62,7 @@ public class RabbitMQConfig {
      */
     @Bean
     public DirectExchange logExchange() {
-        return new DirectExchange("log-exchange");
+        return new DirectExchange("log-exchange"); // 默认持久化
     }
 
     /**
@@ -85,5 +85,15 @@ public class RabbitMQConfig {
     @Bean
     public Queue sysUserQueue() {
         return new Queue("sysUser-queue");
+    }
+
+    /**
+     * 创建队列(主题)
+     *
+     * @return Queue
+     */
+    @Bean
+    public Queue topicQueue() {
+        return new Queue("topic-queue");
     }
 }
