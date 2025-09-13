@@ -14,3 +14,15 @@ spring:
     listener:
       simple:
         acknowledge-mode: manual  # 手动ACK（默认auto）
+    # 启用消息发送确认机制(确保消息到达RabbitMQ)
+    # 消息被发送到RabbitMQ后，会返回一个确认信号（ACK/NACK）给生产者
+    # none: 禁用发布确认模式，是默认值。
+    # correlated: 消费方成功接收到消息后触发回调方法。
+    # simple: 和correlated一样会触发回调方法。
+    #         [异步回调]通过RabbitTemplate.ConfirmCallback
+    #         [同步回调]通过rabbitTemplate.waitForConfirms()或waitForConfirmsOrDie()同步等待Broker的确认结果（会阻塞当前线程）
+    publisher-confirm-type: correlated
+    # 启用消息退回机制(确保消息被正确路由到队列)
+    # 当消息通过Exchange路由到Queue时，如果消息无法被正确路由（例如：路由键不匹配任何绑定队列），RabbitMQ会将消息退回给生产者
+    # 需实现RabbitTemplate.ReturnsCallback接口处理退回的消息)
+    publisher-returns: true
