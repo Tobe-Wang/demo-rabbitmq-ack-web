@@ -14,6 +14,7 @@ import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.Optional;
 
 /**
  * 消息退回机制、消息发送确认机制RabbitMQ应用示例
@@ -38,6 +39,10 @@ public class RabbitMqTopicService implements RabbitTemplate.ConfirmCallback {
 
         // 设置退回回调(确保消息被正确路由到队列)
         rabbitTemplate.setReturnsCallback(returned -> {
+            if (returned.getReplyCode() == 312) { // PRECONDITION_FAILED
+                logger.warn("队列已满被拒绝: {}", returned.getMessage());
+                // 重试策略或降级处理
+            }
             logger.error("消息路由失败: 路由键={}, 退回原因={}", returned.getRoutingKey(), returned.getReplyText());
         });
         */
@@ -50,9 +55,9 @@ public class RabbitMqTopicService implements RabbitTemplate.ConfirmCallback {
      */
     public void sendMessage(String message) {
         // 设置回调为当前对象
-        rabbitTemplate.setConfirmCallback(this);
+//        rabbitTemplate.setConfirmCallback(this);
         // 发送消息
-        rabbitTemplate.convertAndSend(topicQueue.getName(), message);
+        rabbitTemplate.convertAndSend(topicQueue.getName(), Optional.ofNullable(message), new CorrelationData("id_1"));
     }
 
     /**
@@ -64,6 +69,7 @@ public class RabbitMqTopicService implements RabbitTemplate.ConfirmCallback {
      */
     @Override
     public void confirm(@Nullable CorrelationData correlationData, boolean ack, @Nullable String cause) {
+        logger.info("消息发送请求id: {}", correlationData != null ? correlationData.getId() : null);
         if (ack) {
             logger.info("消息发送成功");
         } else {

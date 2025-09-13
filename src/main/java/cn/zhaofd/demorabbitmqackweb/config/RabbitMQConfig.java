@@ -1,9 +1,6 @@
 package cn.zhaofd.demorabbitmqackweb.config;
 
-import org.springframework.amqp.core.Binding;
-import org.springframework.amqp.core.BindingBuilder;
-import org.springframework.amqp.core.DirectExchange;
-import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.config.SimpleRabbitListenerContainerFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.listener.RabbitListenerContainerFactory;
@@ -31,14 +28,12 @@ public class RabbitMQConfig {
     /**
      * 创建RabbitListenerContainerFactory
      *
-     * @param configurer 配置
+     * @param configurer        配置
      * @param connectionFactory 连接工厂
      * @return RabbitListenerContainerFactory
      */
     @Bean
-    public RabbitListenerContainerFactory<?> rabbitListenerContainerFactory(
-            SimpleRabbitListenerContainerFactoryConfigurer configurer,
-            ConnectionFactory connectionFactory) {
+    public RabbitListenerContainerFactory<?> rabbitListenerContainerFactory(SimpleRabbitListenerContainerFactoryConfigurer configurer, ConnectionFactory connectionFactory) {
         SimpleRabbitListenerContainerFactory factory = new SimpleRabbitListenerContainerFactory();
         configurer.configure(factory, connectionFactory);
         factory.setMessageConverter(jsonMessageConverter());
@@ -68,7 +63,7 @@ public class RabbitMQConfig {
     /**
      * 绑定队列和交换机
      *
-     * @param logQueue 队列
+     * @param logQueue    队列
      * @param logExchange 交换机
      * @return Binding
      */
@@ -94,6 +89,13 @@ public class RabbitMQConfig {
      */
     @Bean
     public Queue topicQueue() {
-        return new Queue("topic-queue");
+//        return new Queue("topic-queue");
+
+        return QueueBuilder.durable("topic-queue") // 持久化
+                .withArgument("x-max-length", 5) // 队列最多容纳消息数量
+//                .withArgument("x-max-length-bytes", 102400) // 队列最大总容量100KB
+//                .withArgument("x-overflow", "drop-head") // 丢弃最早的消息(x-overflow不配置时的默认值)
+                .withArgument("x-overflow", "reject-publish") // 队列满时拒绝新消息，生产者会收到basic.return或basic.nack响应(取决于发布确认设置)；不配此参数则丢弃最早的消息
+                .build();
     }
 }
