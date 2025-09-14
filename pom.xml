@@ -41,7 +41,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
-        <!-- 开发工具集，提供自动重启、实时刷新和属性默认值等功能 -->
+        <!-- 热部署，提供自动重启、实时刷新和属性默认值等功能 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
