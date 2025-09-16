@@ -40,6 +40,6 @@ server:
       charset: UTF-8 # 指定http请求和相应的Charset，默认:UTF-8
       force: true # 是否强制对http请求和响应进行编码，默认为true
     session:
-      timeout: 30 # 用户会话session过期时间，默认30分钟
+      timeout: 30m # 用户会话session过期时间[支持单位：s（秒）、m（分钟）、h（小时）]，默认30分钟
   tomcat:
     uri-encoding: UTF-8 # Tomcat的URI编码，默认:UTF-8
