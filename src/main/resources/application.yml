@@ -5,7 +5,7 @@ spring:
   profiles:
     active: dev # 指定活动的profile：dev表示开发环境；prod表示生产环境
   application:
-    name: demo-rabbitmq-ack-web # 应用名称
+    name: demo-rabbitmq-ack-web # 服务名称
   web:
     locale: zh_CN # 设置国际化默认语言环境(用于spring-boot-starter-validation国际化)
     locale-resolver: fixed # 使用固定区域设置(用于spring-boot-starter-validation国际化)
